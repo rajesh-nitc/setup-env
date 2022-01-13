@@ -12,14 +12,13 @@ sudo apt-get install -y curl wget git unzip
 mkdir -p $CLOUDSDK_INSTALL_DIR/bin
 
 # vs code
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt-get update --allow-releaseinfo-change
-sudo apt-get install -y code
-rm packages.microsoft.gpg
+# wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+# sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+# sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+# sudo apt-get update --allow-releaseinfo-change
+# sudo apt-get install -y code
+# rm packages.microsoft.gpg
 
-# python
 # gcloud sdk needs python
 sudo apt install -y python3 python3-dev python3-venv python3-pip 
 pip3 install pip-tools
@@ -46,7 +45,7 @@ mv terraform-docs-v${TERRAFORM_DOCS_VERSION}-linux-amd64 terraform-docs
 chmod +x terraform-docs
 sudo mv terraform-docs /usr/local/bin
 
-# jupyter notebook (optional)
+# jupyter notebook
 # pip3 install jupyterlab
 # pip3 install bash_kernel
 # python3 -m bash_kernel.install
