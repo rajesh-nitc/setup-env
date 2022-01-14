@@ -9,6 +9,8 @@ mkdir -p "$HOME/.terraform.d/plugin-cache"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 echo "export PATH=$PATH:$CLOUDSDK_INSTALL_DIR/google-cloud-sdk/bin:$CLOUDSDK_INSTALL_DIR/bin" >> "$HOME/.zshrc"
+
+# Terraform Plugin Cache
 echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zshrc"
 
 sed -i "s/robbyrussell/agnoster/" $HOME/.zshrc
