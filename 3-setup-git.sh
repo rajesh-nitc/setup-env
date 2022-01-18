@@ -7,7 +7,7 @@ ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
 
 # global
 git config --global user.name "rajesh"
-git config --global user.email "rajesh.nitc@gmail.com"
+git config --global user.email ""
 
 # local
 # git config user.name "rajesh"
