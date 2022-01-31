@@ -55,6 +55,9 @@ sudo mv terraform-docs /usr/local/bin
 # pre-commit terraform
 pip3 install pre-commit
 
+# checkov terraform
+pip3 install checkov
+
 # tflint
 curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
