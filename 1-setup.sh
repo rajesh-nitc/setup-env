@@ -19,13 +19,18 @@ sudo apt-get update --allow-releaseinfo-change
 sudo apt-get install -y code
 rm packages.microsoft.gpg
 
-# gcloud sdk
+# jetbrains toolbox
+wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+sudo tar -xzf jetbrains-toolbox.tar.gz -C /opt
+rm jetbrains-toolbox.tar.gz
+
+# gcloud cli
 sudo apt install -y apt-transport-https ca-certificates gnupg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 sudo apt-get update --allow-releaseinfo-change && sudo apt-get install -y google-cloud-sdk
 
-# gcloud additional components
+# gcloud cli components
 sudo apt install -y kubectl google-cloud-sdk-skaffold google-cloud-sdk-nomos google-cloud-sdk-kpt
 
 # kustomize
@@ -64,9 +69,9 @@ pip3 install checkov
 curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
 # terraform-validator
-gsutil cp gs://terraform-validator/releases/${TERRAFORM_VALIDATOR_VERSION}/terraform-validator-linux-amd64 .
-chmod +x terraform-validator-linux-amd64
-sudo mv terraform-validator-linux-amd64 /usr/local/bin/terraform-validator
+# gsutil cp gs://terraform-validator/releases/${TERRAFORM_VALIDATOR_VERSION}/terraform-validator-linux-amd64 .
+# chmod +x terraform-validator-linux-amd64
+# sudo mv terraform-validator-linux-amd64 /usr/local/bin/terraform-validator
 
 # docker
 sudo apt-get install -y apt-transport-https ca-certificates gnupg lsb-release
