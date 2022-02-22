@@ -7,12 +7,7 @@ TERRAFORM_VALIDATOR_VERSION=2021-03-22
 TERRAFORM_DOCS_VERSION=0.10.1
 
 sudo apt-get update --allow-releaseinfo-change
-
-# general
-sudo apt-get install -y curl wget git unzip
-
-# network
-sudo apt-get install -y tcpdump dnsutils
+sudo apt-get install -y curl wget git unzip tcpdump dnsutils
 
 # vs code
 # wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
