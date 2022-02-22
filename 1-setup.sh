@@ -6,15 +6,15 @@ TERRAFORM_VERSION=1.1.5
 TERRAFORM_VALIDATOR_VERSION=2021-03-22
 TERRAFORM_DOCS_VERSION=0.10.1
 
-sudo apt-get update --allow-releaseinfo-change
-sudo apt-get install -y curl wget git unzip tcpdump dnsutils
+sudo apt update --allow-releaseinfo-change
+sudo apt install -y curl wget git unzip tcpdump dnsutils
 
 # vs code
 # wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 # sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 # sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-# sudo apt-get update --allow-releaseinfo-change
-# sudo apt-get install -y code
+# sudo apt update --allow-releaseinfo-change
+# sudo apt install -y code
 # rm packages.microsoft.gpg
 
 # jetbrains toolbox
@@ -26,7 +26,7 @@ sudo apt-get install -y curl wget git unzip tcpdump dnsutils
 sudo apt install -y apt-transport-https ca-certificates gnupg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-sudo apt-get update --allow-releaseinfo-change && sudo apt-get install -y google-cloud-sdk
+sudo apt update --allow-releaseinfo-change && sudo apt install -y google-cloud-sdk
 
 # gcloud cli components
 sudo apt install -y kubectl google-cloud-sdk-skaffold google-cloud-sdk-nomos google-cloud-sdk-kpt
@@ -36,7 +36,7 @@ curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack
 sudo mv kustomize /usr/local/bin
 
 # terraform
-sudo apt-get install -y unzip
+sudo apt install -y unzip
 curl -k -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
