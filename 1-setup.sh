@@ -7,22 +7,25 @@ TERRAFORM_VALIDATOR_VERSION=2021-03-22
 TERRAFORM_DOCS_VERSION=0.10.1
 
 sudo apt-get update --allow-releaseinfo-change
+
+# general
 sudo apt-get install -y curl wget git unzip
 
+# network
+sudo apt-get install -y tcpdump dnsutils
+
 # vs code
-# if wsl: commented
-# if chromebook: uncomment
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-sudo apt-get update --allow-releaseinfo-change
-sudo apt-get install -y code
-rm packages.microsoft.gpg
+# wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+# sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+# sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+# sudo apt-get update --allow-releaseinfo-change
+# sudo apt-get install -y code
+# rm packages.microsoft.gpg
 
 # jetbrains toolbox
-wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
-sudo tar -xzf jetbrains-toolbox.tar.gz -C /opt
-rm jetbrains-toolbox.tar.gz
+# wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+# sudo tar -xzf jetbrains-toolbox.tar.gz -C /opt
+# rm jetbrains-toolbox.tar.gz
 
 # gcloud cli
 sudo apt install -y apt-transport-https ca-certificates gnupg
@@ -54,11 +57,6 @@ sudo mv terraform-docs /usr/local/bin
 sudo apt install -y python3 python3-dev python3-venv python3-pip 
 pip3 install pip-tools
 
-# jupyter notebook
-# pip3 install jupyterlab
-# pip3 install bash_kernel
-# python3 -m bash_kernel.install
-
 # pre-commit terraform
 pip3 install pre-commit
 
@@ -83,7 +81,7 @@ sudo usermod -a -G docker ${USER}
 
 # zsh
 sudo apt install -y zsh
-sudo sed -i s/required/sufficient/g /etc/pam.d/chsh
 
 # ohmyzsh
+sudo sed -i s/required/sufficient/g /etc/pam.d/chsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
