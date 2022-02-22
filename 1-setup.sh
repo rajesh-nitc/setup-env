@@ -52,6 +52,9 @@ sudo mv terraform-docs /usr/local/bin
 sudo apt install -y python3 python3-dev python3-venv python3-pip 
 pip3 install pip-tools
 
+# tldr
+pip3 install tldr
+
 # pre-commit terraform
 pip3 install pre-commit
 
