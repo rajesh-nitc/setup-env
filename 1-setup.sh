@@ -59,7 +59,7 @@ pip3 install tldr
 pip3 install pre-commit
 
 # checkov terraform
-pip3 install checkov
+# pip3 install checkov
 
 # tflint
 curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
@@ -76,6 +76,13 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -a -G docker ${USER}
+
+# path
+cat >> ~/.profile <<'EOF'
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+EOF
 
 # zsh
 # sudo apt install -y zsh
