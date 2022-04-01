@@ -83,3 +83,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
+
+# zsh
+sudo apt install -y zsh
+
+# ohmyzsh
+sudo sed -i s/required/sufficient/g /etc/pam.d/chsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
