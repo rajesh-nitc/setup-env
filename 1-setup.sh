@@ -6,14 +6,14 @@ TERRAFORM_VERSION=1.1.5
 TERRAFORM_VALIDATOR_VERSION=2021-03-22
 TERRAFORM_DOCS_VERSION=0.10.1
 
-sudo apt update --allow-releaseinfo-change
+sudo apt update
 sudo apt install -y curl wget git unzip tcpdump dnsutils
 
 # vs code
 # wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 # sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 # sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-# sudo apt update --allow-releaseinfo-change
+# sudo apt update
 # sudo apt install -y code
 # rm packages.microsoft.gpg
 
@@ -26,7 +26,7 @@ sudo apt install -y curl wget git unzip tcpdump dnsutils
 sudo apt install -y apt-transport-https ca-certificates gnupg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-sudo apt update --allow-releaseinfo-change && sudo apt install -y google-cloud-sdk
+sudo apt update && sudo apt install -y google-cloud-sdk
 
 # gcloud cli components
 sudo apt install -y kubectl google-cloud-sdk-skaffold google-cloud-sdk-nomos google-cloud-sdk-kpt
