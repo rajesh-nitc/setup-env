@@ -73,13 +73,13 @@ curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_l
 sudo apt-get install -y apt-transport-https ca-certificates gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update --allow-releaseinfo-change
+sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -a -G docker ${USER}
 
 # zsh
-sudo apt install -y zsh
+# sudo apt install -y zsh
 
 # ohmyzsh
-sudo sed -i s/required/sufficient/g /etc/pam.d/chsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# sudo sed -i s/required/sufficient/g /etc/pam.d/chsh
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
