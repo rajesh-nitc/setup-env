@@ -6,6 +6,7 @@ mkdir -p $HOME/.ssh
 ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
 
 # global
+git config --global url."git@github.com:".insteadOf git://github.com/
 git config --global user.name "rajesh"
 git config --global user.email ""
 
