@@ -77,6 +77,9 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo usermod -a -G docker ${USER}
 
+# if wsl
+sudo service docker start
+
 # path
 cat >> ~/.profile <<'EOF'
 if [ -d "$HOME/.local/bin" ] ; then
