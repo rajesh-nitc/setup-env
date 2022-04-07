@@ -21,6 +21,6 @@ echo 'DISABLE_AUTO_TITLE="true"' >> "$HOME/.zshrc"
 # https://gist.github.com/stramel/658d702f3af8a86a6fe8b588720e0e23
 # update font to DejaVu Sans Mono for Powerline in wsl terminal properties
 # optional: install windows terminal
-# set defaults for e.g. color theme: one half dark, font face: source code pro for powerline, starting dir: /home/rajesh, cursor: vintage
+# set defaults for e.g. color theme: one half dark, font face: inconsolata for powerline, starting dir: /home/rajesh, cursor: vintage
 # startup values for e.g. default profile: debian, launch mode: maximized
 # interaction values for e.g. automatically copy selection to clipboard: On
