@@ -11,7 +11,7 @@ echo "export PATH=$HOME/.local/bin:$PATH" >> "$HOME/.zshrc"
 
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i "s/robbyrussell/agnoster/" $HOME/.zshrc
+sed -i "s/robbyrussell/macovsky-ruby/" $HOME/.zshrc
 sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions terraform)/" $HOME/.zshrc
 echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 echo 'DISABLE_AUTO_TITLE="true"' >> "$HOME/.zshrc"
