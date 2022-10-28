@@ -6,9 +6,6 @@ set -xe
 mkdir -p "$HOME/.terraform.d/plugin-cache"
 echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zshrc"
 
-# Path
-echo "export PATH=$HOME/.local/bin:$PATH" >> "$HOME/.zshrc"
-
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 sed -i "s/robbyrussell/agnoster/" $HOME/.zshrc
