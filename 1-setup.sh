@@ -47,6 +47,9 @@ sudo apt install -y docker-ce
 sudo usermod -a -G docker ${USER}
 sudo service docker start
 
+# For code. to work:
+# update path in ~/.bashrc: For e.g. put quotes around "Program Files" AND "Microsoft VS Code"
+
 # zsh
 # sudo apt install -y zsh
 
