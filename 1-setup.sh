@@ -47,7 +47,7 @@ sudo apt install -y docker-ce
 sudo usermod -a -G docker ${USER}
 sudo service docker start
 
-# Update PATH in ~/.bashrc - Put quotes around "Program Files" AND "Microsoft VS Code"
+# If code . does not work in WSL, Update PATH in ~/.bashrc - Put quotes around "Program Files" AND "Microsoft VS Code"
 
 # zsh
 # sudo apt install -y zsh
