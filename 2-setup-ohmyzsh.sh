@@ -8,15 +8,13 @@ echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zsh
 
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i "s/robbyrussell/simple/" $HOME/.zshrc
+sed -i "s/robbyrussell/sunrise/" $HOME/.zshrc
 sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud)/" $HOME/.zshrc
 echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 
-# update path (for code. to work) in ~/.zshrc: For e.g. put quotes around "Program Files" AND "Microsoft VS Code"
-# https://gist.github.com/stramel/658d702f3af8a86a6fe8b588720e0e23
-# update font to DejaVu Sans Mono for Powerline in wsl terminal properties
+# UPDATE PATH in ~/.zshrc - Put quotes around "Program Files" AND "Microsoft VS Code"
 
-# vscode dark+ theme on windows terminal
+# OPTIONAL - To use vscode dark+ theme on Windows Terminal
 # {
 #             "background": "#1E1E1E",
 #             "black": "#000000",
@@ -40,4 +38,3 @@ echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 #             "white": "#E5E5E5",
 #             "yellow": "#E5E510"
 #         }
-
