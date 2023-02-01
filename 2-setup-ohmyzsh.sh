@@ -12,8 +12,6 @@ sed -i "s/robbyrussell/sunrise/" $HOME/.zshrc
 sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud)/" $HOME/.zshrc
 echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 
-# UPDATE PATH in ~/.zshrc - Put quotes around "Program Files" AND "Microsoft VS Code"
-
 # OPTIONAL - To use vscode dark+ theme on Windows Terminal
 # {
 #             "background": "#1E1E1E",
