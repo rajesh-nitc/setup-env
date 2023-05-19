@@ -9,8 +9,16 @@ echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zsh
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 sed -i "s/robbyrussell/sunrise/" $HOME/.zshrc
-sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud)/" $HOME/.zshrc
+sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud git)/" $HOME/.zshrc
 echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
+
+# Sync time between wsl container and host
+echo "sudo ntpdate time.windows.com" >> "$HOME/.zshrc"
+
+# run sudo ntpdate time.windows.com without password
+# visudo
+# Add below command at the end of file
+# ALL  ALL=NOPASSWD: /usr/sbin/ntpdate time.windows.com
 
 # OPTIONAL - To use vscode dark+ theme on Windows Terminal
 # {
