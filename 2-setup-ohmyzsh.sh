@@ -2,9 +2,14 @@
 
 set -xe
 
+GCLOUD_REGION="us-east4"
+
 # Terraform Plugin Cache
 mkdir -p "$HOME/.terraform.d/plugin-cache"
 echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zshrc"
+
+# Docker client to authenticate with GCP Artifact Registry
+gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
