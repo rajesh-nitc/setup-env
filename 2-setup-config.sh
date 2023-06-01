@@ -11,9 +11,25 @@ echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zsh
 # Docker client to authenticate with GCP Artifact Registry
 gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
 
+# Git
+mkdir -p $HOME/.ssh
+ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+
+# global
+git config --global url."git@github.com:".insteadOf git://github.com/
+git config --global user.name "rajesh"
+git config --global user.email ""
+
+# local repo
+# git config user.name "rajesh"
+# git config user.email ""
+
+# Custom
+# export GIT_SSH_COMMAND="ssh -i ~/.ssh/github"
+
 # ohmyzsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i "s/robbyrussell/sunrise/" $HOME/.zshrc
+sed -i "s/robbyrussell/robbyrussell/" $HOME/.zshrc
 sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud git)/" $HOME/.zshrc
 echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 
