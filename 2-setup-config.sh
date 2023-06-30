@@ -19,10 +19,14 @@ ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
 git config --global url."git@github.com:".insteadOf git://github.com/
 git config --global user.name "rajesh"
 git config --global user.email ""
+# view config
+# git config --list --global
 
 # local repo
 # git config user.name "rajesh"
 # git config user.email ""
+# view config
+# git config --list --local
 
 # Custom
 # export GIT_SSH_COMMAND="ssh -i ~/.ssh/github"
