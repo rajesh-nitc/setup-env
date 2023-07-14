@@ -47,6 +47,12 @@ sudo apt install -y docker-ce
 sudo usermod -a -G docker ${USER}
 sudo service docker start
 
+# install nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.3/install.sh | bash
+
+# install node
+nvm install node
+
 # If code . does not work in WSL, Update PATH in ~/.bashrc - Put quotes around "Program Files" AND "Microsoft VS Code"
 
 # zsh
