@@ -46,6 +46,9 @@ unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
+# pre-commit
+pip3 install pre-commit
+
 # docker
 sudo apt install -y apt-transport-https ca-certificates gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
