@@ -63,6 +63,9 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.3/install.sh | b
 # install node
 nvm install node
 
+# tldr
+npm install -g tldr
+
 # If code . does not work in WSL, Update PATH in ~/.bashrc - Put quotes around "Program Files" AND "Microsoft VS Code"
 
 # zsh
