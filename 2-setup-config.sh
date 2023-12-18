@@ -40,10 +40,13 @@ echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
 # Sync time between wsl container and host
 echo "sudo ntpdate time.windows.com" >> "$HOME/.zshrc"
 
-# run sudo ntpdate time.windows.com without password
+# To run the aabove command i.e. sudo ntpdate time.windows.com without password :
 # visudo
 # Add below command at the end of file
 # ALL  ALL=NOPASSWD: /usr/sbin/ntpdate time.windows.com
+
+# To resolve Azure dns issue on wsl:
+# https://github.com/microsoft/WSL/issues/8022#issuecomment-1032554287
 
 # OPTIONAL - To use vscode dark+ theme on Windows Terminal
 # {
