@@ -1,74 +1,171 @@
 #!/bin/bash
 
-set -xe
+# Exit script on error
+set -e
 
-GCLOUD_REGION="us-east4"
+# =====================
+# User-Defined Variables
+# =====================
+# Modify these variables before running the script
+GCLOUD_REGION="us-central1"
+GIT_USER_NAME="rajesh-nitc"
+GIT_USER_EMAIL=""
+TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+GCLOUD_CONFIG_DIR="$HOME/.config/gcloud"
+DOCKER_CONFIG_DIR="$HOME/.docker"
+ZSHRC_FILE="$HOME/.zshrc"
+CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
+SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 
-# Terraform Plugin Cache
-mkdir -p "$HOME/.terraform.d/plugin-cache"
-echo "export TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache" >> "$HOME/.zshrc"
+# =====================
+# Pre-Checks
+# =====================
+# Check if gcloud CLI is installed
+if ! command -v gcloud &> /dev/null; then
+    echo "Error: gcloud CLI not found. Please install it first."
+    exit 1
+fi
 
-# Docker client to authenticate with GCP Artifact Registry
-gcloud auth configure-docker $GCLOUD_REGION-docker.pkg.dev
+# Check if Git is installed
+if ! command -v git &> /dev/null; then
+    echo "Error: Git not found. Please install it first."
+    exit 1
+fi
 
-# Git
-mkdir -p $HOME/.ssh
-ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+# Check if VS Code is installed
+if ! command -v code &> /dev/null; then
+    echo "Error: VS Code not found. Please install it first."
+    exit 1
+fi
 
-# global
-git config --global url."git@github.com:".insteadOf git://github.com/
-git config --global user.name "rajesh"
-git config --global user.email ""
-# view config
-# git config --list --global
+# =====================
+# Terraform Config
+# =====================
+echo "Setting up Terraform configuration..."
+mkdir -p "$TF_PLUGIN_CACHE_DIR"
 
-# local repo
-# git config user.name "rajesh"
-# git config user.email ""
-# view config
-# git config --list --local
+cat <<EOF > "$HOME/.terraformrc"
+plugin_cache_dir = "$TF_PLUGIN_CACHE_DIR"
+disable_checkpoint = true
+EOF
+echo "Terraform configuration updated with plugin cache and checkpoint disabling."
 
-# Custom
-# export GIT_SSH_COMMAND="ssh -i ~/.ssh/github"
+# =====================
+# gcloud Config
+# =====================
+echo "Setting up Google Cloud SDK configuration..."
+mkdir -p "$GCLOUD_CONFIG_DIR"
 
-# ohmyzsh
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i "s/robbyrussell/robbyrussell/" $HOME/.zshrc
-sed -i "s/plugins=(git)/plugins=(zsh-autosuggestions terraform gcloud git)/" $HOME/.zshrc
-echo 'HYPHEN_INSENSITIVE="true"' >> "$HOME/.zshrc"
+gcloud components update --quiet
+gcloud config set compute/region "$GCLOUD_REGION"
+gcloud config set core/disable_usage_reporting true
+gcloud config set core/log_http true
 
-# Sync time between wsl container and host
-echo "sudo ntpdate time.windows.com" >> "$HOME/.zshrc"
+# Configure Docker authentication for gcloud
+gcloud auth configure-docker "${GCLOUD_REGION}-docker.pkg.dev" --quiet
+echo "gcloud configured for Docker authentication with region: $GCLOUD_REGION."
 
-# To run the aabove command i.e. sudo ntpdate time.windows.com without password :
-# visudo
-# Add below command at the end of file
-# ALL  ALL=NOPASSWD: /usr/sbin/ntpdate time.windows.com
+# =====================
+# Docker Config
+# =====================
+echo "Setting up Docker configuration..."
+mkdir -p "$DOCKER_CONFIG_DIR"
 
-# To resolve Azure dns issue on wsl:
-# https://github.com/microsoft/WSL/issues/8022#issuecomment-1032554287
+cat <<EOF > "$DOCKER_CONFIG_DIR/config.json"
+{
+    "experimental": "enabled",
+    "features": {
+        "buildkit": true
+    }
+}
+EOF
+echo "Docker configuration set with experimental features and BuildKit enabled."
 
-# OPTIONAL - To use vscode dark+ theme on Windows Terminal
-# {
-#             "background": "#1E1E1E",
-#             "black": "#000000",
-#             "blue": "#2472C8",
-#             "brightBlack": "#666666",
-#             "brightBlue": "#3B8EEA",
-#             "brightCyan": "#29B8DB",
-#             "brightGreen": "#23D18B",
-#             "brightPurple": "#D670D6",
-#             "brightRed": "#F14C4C",
-#             "brightWhite": "#E5E5E5",
-#             "brightYellow": "#F5F543",
-#             "cursorColor": "#808080",
-#             "cyan": "#11A8CD",
-#             "foreground": "#CCCCCC",
-#             "green": "#0DBC79",
-#             "name": "Dark+",
-#             "purple": "#BC3FBC",
-#             "red": "#CD3131",
-#             "selectionBackground": "#FFFFFF",
-#             "white": "#E5E5E5",
-#             "yellow": "#E5E510"
-#         }
+# =====================
+# VS Code Config
+# =====================
+echo "Setting up Visual Studio Code configuration..."
+mkdir -p "$(dirname "$CODE_USER_SETTINGS")"
+
+cat <<EOF > "$CODE_USER_SETTINGS"
+{
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "files.autoSave": "onFocusChange",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Visual Studio Dark",
+    "extensions.ignoreRecommendations": false,
+    "git.confirmSync": false
+}
+EOF
+echo "VS Code configuration updated with modern settings."
+
+# =====================
+# Install VS Code Extensions
+# =====================
+echo "Installing recommended VS Code extensions..."
+
+# List of recommended extensions
+EXTENSIONS=(
+    "ms-python.python"                  # Python support
+    "hashicorp.terraform"               # Terraform support
+    "googlecloudtools.cloudcode"        # Google Cloud support
+    "dbaeumer.vscode-eslint"            # ESLint support
+    "redhat.vscode-yaml"                # YAML support
+    "ms-azuretools.vscode-docker"       # Docker support
+    "formulahendry.code-runner"         # Run code from VSCode
+    "editorconfig.editorconfig"         # EditorConfig support
+    "eamodio.gitlens"                   # GitLens - Git supercharged
+    "esbenp.prettier-vscode"            # Prettier - Code formatter
+)
+
+# Install each extension
+for EXTENSION in "${EXTENSIONS[@]}"; do
+    code --install-extension "$EXTENSION"
+done
+
+echo "VS Code extensions installed."
+
+# =====================
+# Zsh Config
+# =====================
+echo "Updating Zsh configuration..."
+
+if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
+    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
+fi
+
+if ! grep -q "gcloud CLI config" "$ZSHRC_FILE"; then
+    echo "alias gcloud='gcloud --quiet'" >> "$ZSHRC_FILE"
+fi
+
+# =====================
+# Git Config
+# =====================
+echo "Setting up Git configuration..."
+git config --global user.name "$GIT_USER_NAME"
+git config --global user.email "$GIT_USER_EMAIL"
+git config --global core.editor "code --wait"
+git config --global pull.rebase true
+git config --global init.defaultBranch main
+
+# SSH Key for GitHub
+if [[ ! -f "$SSH_KEY_PATH" ]]; then
+    echo "Generating SSH key for GitHub..."
+    ssh-keygen -t rsa -b 4096 -C "$GIT_USER_EMAIL" -f "$SSH_KEY_PATH" -N ""
+    eval "$(ssh-agent -s)"
+    ssh-add "$SSH_KEY_PATH"
+    echo "SSH key generated. Add the following public key to GitHub:"
+    cat "$SSH_KEY_PATH.pub"
+fi
+
+# =====================
+# Final Message
+# =====================
+echo "Enhanced configurations for Terraform, gcloud, Docker, VS Code, Zsh, and Git have been set up."
+echo "Configuration complete. To apply Zsh changes, run: source ~/.zshrc"
