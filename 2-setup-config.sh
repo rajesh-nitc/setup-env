@@ -8,7 +8,7 @@ set -xe
 # =====================
 OH_MY_ZSH_PLUGINS=("zsh-autosuggestions" "terraform" "gcloud" "git" "docker" "kubectl" "zsh-syntax-highlighting")
 GIT_USER_NAME="rajesh-nitc"
-GIT_USER_EMAIL="rajesh.nitc@gmail.com"
+GIT_USER_EMAIL=""
 TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
