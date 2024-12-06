@@ -28,6 +28,10 @@ if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
     echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
 fi
 
+if ! grep -q "alias cdh='cd \$HOME'" ~/.zshrc; then
+    echo "alias cdh='cd \$HOME'" >> ~/.zshrc
+fi
+
 # =====================
 # Pre-Checks
 # =====================
