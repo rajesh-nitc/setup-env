@@ -1,18 +1,32 @@
 #!/bin/bash
 
 # Exit script on error
-set -e
+set -xe
 
 # =====================
 # User-Defined Variables
 # =====================
-# Modify these variables before running the script
+OH_MY_ZSH_PLUGINS=("zsh-autosuggestions" "terraform" "gcloud" "git" "docker" "kubectl" "zsh-syntax-highlighting")
 GIT_USER_NAME="rajesh-nitc"
-GIT_USER_EMAIL=""
+GIT_USER_EMAIL="rajesh.nitc@gmail.com"
 TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
 SSH_KEY_PATH="$HOME/.ssh/id_rsa"
+
+# =====================
+# Zsh Config
+# =====================
+echo "Updating Zsh configuration..."
+
+# Add Snap to PATH in Zsh if not already present
+if ! grep -q "/snap/bin" "$ZSHRC_FILE"; then
+    echo "export PATH=\$PATH:/snap/bin" >> "$ZSHRC_FILE"
+fi
+
+if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
+    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
+fi
 
 # =====================
 # Pre-Checks
@@ -30,18 +44,26 @@ if ! command -v code &> /dev/null; then
 fi
 
 # =====================
-# Zsh Config
+# Install Oh My Zsh Plugins
 # =====================
-echo "Updating Zsh configuration..."
+echo "Installing Oh My Zsh plugins..."
 
-# Add Snap to PATH in Zsh if not already present
-if ! grep -q "/snap/bin" "$ZSHRC_FILE"; then
-    echo "export PATH=\$PATH:/snap/bin" >> "$ZSHRC_FILE"
+# Install zsh-autosuggestions
+if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 fi
 
-if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
-    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
+# Install zsh-syntax-highlighting
+if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 fi
+
+# Enable plugins in ~/.zshrc
+for plugin in "${OH_MY_ZSH_PLUGINS[@]}"; do
+  if ! grep -q "$plugin" ~/.zshrc; then
+    sed -i "/^plugins=/ s/)/ $plugin)/" ~/.zshrc
+  fi
+done
 
 # =====================
 # Terraform Config

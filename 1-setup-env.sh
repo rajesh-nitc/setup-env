@@ -3,12 +3,7 @@
 # Using it on Ubuntu 24.04.1 LTS
 
 # Exit script on error
-set -e
-
-# =====================
-# Variables
-# =====================
-OH_MY_ZSH_PLUGINS=("zsh-autosuggestions" "terraform" "gcloud" "git" "docker" "kubectl" "zsh-syntax-highlighting")
+set -xe
 
 # =====================
 # Update and Upgrade System
@@ -56,29 +51,6 @@ echo "Installing Oh My Zsh..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # =====================
-# Install Oh My Zsh Plugins
-# =====================
-echo "Installing Oh My Zsh plugins..."
-
-# Install zsh-autosuggestions
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-fi
-
-# Install zsh-syntax-highlighting
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-fi
-
-# Enable plugins in ~/.zshrc
-for plugin in "${OH_MY_ZSH_PLUGINS[@]}"; do
-  if ! grep -q "$plugin" ~/.zshrc; then
-    sed -i "/^plugins=/ s/)/ $plugin)/" ~/.zshrc
-  fi
-done
-
-
-# =====================
 # Final Message
 # =====================
-echo "Installation complete. Restart your terminal."
+echo "Installation complete. Restart terminal."
