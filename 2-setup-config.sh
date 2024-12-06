@@ -7,12 +7,9 @@ set -e
 # User-Defined Variables
 # =====================
 # Modify these variables before running the script
-GCLOUD_REGION="us-central1"
 GIT_USER_NAME="rajesh-nitc"
 GIT_USER_EMAIL=""
 TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
-GCLOUD_CONFIG_DIR="$HOME/.config/gcloud"
-DOCKER_CONFIG_DIR="$HOME/.docker"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
 SSH_KEY_PATH="$HOME/.ssh/id_rsa"
@@ -20,12 +17,6 @@ SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 # =====================
 # Pre-Checks
 # =====================
-# Check if gcloud CLI is installed
-if ! command -v gcloud &> /dev/null; then
-    echo "Error: gcloud CLI not found. Please install it first."
-    exit 1
-fi
-
 # Check if Git is installed
 if ! command -v git &> /dev/null; then
     echo "Error: Git not found. Please install it first."
@@ -39,6 +30,20 @@ if ! command -v code &> /dev/null; then
 fi
 
 # =====================
+# Zsh Config
+# =====================
+echo "Updating Zsh configuration..."
+
+# Add Snap to PATH in Zsh if not already present
+if ! grep -q "/snap/bin" "$ZSHRC_FILE"; then
+    echo "export PATH=\$PATH:/snap/bin" >> "$ZSHRC_FILE"
+fi
+
+if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
+    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
+fi
+
+# =====================
 # Terraform Config
 # =====================
 echo "Setting up Terraform configuration..."
@@ -49,37 +54,6 @@ plugin_cache_dir = "$TF_PLUGIN_CACHE_DIR"
 disable_checkpoint = true
 EOF
 echo "Terraform configuration updated with plugin cache and checkpoint disabling."
-
-# =====================
-# gcloud Config
-# =====================
-echo "Setting up Google Cloud SDK configuration..."
-mkdir -p "$GCLOUD_CONFIG_DIR"
-
-gcloud components update --quiet
-gcloud config set compute/region "$GCLOUD_REGION"
-gcloud config set core/disable_usage_reporting true
-gcloud config set core/log_http true
-
-# Configure Docker authentication for gcloud
-gcloud auth configure-docker "${GCLOUD_REGION}-docker.pkg.dev" --quiet
-echo "gcloud configured for Docker authentication with region: $GCLOUD_REGION."
-
-# =====================
-# Docker Config
-# =====================
-echo "Setting up Docker configuration..."
-mkdir -p "$DOCKER_CONFIG_DIR"
-
-cat <<EOF > "$DOCKER_CONFIG_DIR/config.json"
-{
-    "experimental": "enabled",
-    "features": {
-        "buildkit": true
-    }
-}
-EOF
-echo "Docker configuration set with experimental features and BuildKit enabled."
 
 # =====================
 # VS Code Config
@@ -132,19 +106,6 @@ done
 echo "VS Code extensions installed."
 
 # =====================
-# Zsh Config
-# =====================
-echo "Updating Zsh configuration..."
-
-if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
-    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
-fi
-
-if ! grep -q "gcloud CLI config" "$ZSHRC_FILE"; then
-    echo "alias gcloud='gcloud --quiet'" >> "$ZSHRC_FILE"
-fi
-
-# =====================
 # Git Config
 # =====================
 echo "Setting up Git configuration..."
@@ -167,5 +128,5 @@ fi
 # =====================
 # Final Message
 # =====================
-echo "Enhanced configurations for Terraform, gcloud, Docker, VS Code, Zsh, and Git have been set up."
+echo "Enhanced configurations for Terraform, VS Code, Zsh, and Git have been set up."
 echo "Configuration complete. To apply Zsh changes, run: source ~/.zshrc"
