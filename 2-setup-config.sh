@@ -29,7 +29,7 @@ if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
 fi
 
 if ! grep -q "alias cdh='cd \$HOME'" ~/.zshrc; then
-    echo "alias cdh='cd \$HOME'" >> ~/.zshrc
+    echo "alias cdh='cd \$HOME/Dev'" >> ~/.zshrc
 fi
 
 # =====================
