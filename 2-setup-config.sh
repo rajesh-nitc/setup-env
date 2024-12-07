@@ -8,7 +8,7 @@ set -xe
 # =====================
 OH_MY_ZSH_PLUGINS=("zsh-autosuggestions" "terraform" "gcloud" "git" "docker" "kubectl" "zsh-syntax-highlighting")
 GIT_USER_NAME="rajesh-nitc"
-GIT_USER_EMAIL=""
+GIT_USER_EMAIL="rajesh.nitc@gmail.com"
 TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
@@ -21,28 +21,22 @@ echo "Updating Zsh configuration..."
 
 # Add Snap to PATH in Zsh if not already present
 if ! grep -q "/snap/bin" "$ZSHRC_FILE"; then
-    echo "export PATH=\$PATH:/snap/bin" >> "$ZSHRC_FILE"
+    echo "export PATH=\$PATH:/snap/bin" >>"$ZSHRC_FILE"
 fi
 
 if ! grep -q "TF_PLUGIN_CACHE_DIR" "$ZSHRC_FILE"; then
-    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >> "$ZSHRC_FILE"
+    echo "export TF_PLUGIN_CACHE_DIR=\"$TF_PLUGIN_CACHE_DIR\"" >>"$ZSHRC_FILE"
 fi
 
 if ! grep -q "alias cdh='cd \$HOME'" ~/.zshrc; then
-    echo "alias cdh='cd \$HOME/Dev'" >> ~/.zshrc
+    echo "alias cdh='cd \$HOME/Dev'" >>~/.zshrc
 fi
 
 # =====================
 # Pre-Checks
 # =====================
-# Check if Git is installed
-if ! command -v git &> /dev/null; then
-    echo "Error: Git not found. Please install it first."
-    exit 1
-fi
-
 # Check if VS Code is installed
-if ! command -v code &> /dev/null; then
+if ! command -v code &>/dev/null; then
     echo "Error: VS Code not found. Please install it first."
     exit 1
 fi
@@ -54,19 +48,19 @@ echo "Installing Oh My Zsh plugins..."
 
 # Install zsh-autosuggestions
 if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 fi
 
 # Install zsh-syntax-highlighting
 if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 fi
 
 # Enable plugins in ~/.zshrc
 for plugin in "${OH_MY_ZSH_PLUGINS[@]}"; do
-  if ! grep -q "$plugin" ~/.zshrc; then
-    sed -i "/^plugins=/ s/)/ $plugin)/" ~/.zshrc
-  fi
+    if ! grep -q "$plugin" ~/.zshrc; then
+        sed -i "/^plugins=/ s/)/ $plugin)/" ~/.zshrc
+    fi
 done
 
 # =====================
@@ -75,7 +69,7 @@ done
 echo "Setting up Terraform configuration..."
 mkdir -p "$TF_PLUGIN_CACHE_DIR"
 
-cat <<EOF > "$HOME/.terraformrc"
+cat <<EOF >"$HOME/.terraformrc"
 plugin_cache_dir = "$TF_PLUGIN_CACHE_DIR"
 disable_checkpoint = true
 EOF
@@ -87,7 +81,7 @@ echo "Terraform configuration updated with plugin cache and checkpoint disabling
 echo "Setting up Visual Studio Code configuration..."
 mkdir -p "$(dirname "$CODE_USER_SETTINGS")"
 
-cat <<EOF > "$CODE_USER_SETTINGS"
+cat <<EOF >"$CODE_USER_SETTINGS"
 {
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
@@ -112,16 +106,17 @@ echo "Installing recommended VS Code extensions..."
 
 # List of recommended extensions
 EXTENSIONS=(
-    "ms-python.python"                  # Python support
-    "hashicorp.terraform"               # Terraform support
-    "googlecloudtools.cloudcode"        # Google Cloud support
-    "dbaeumer.vscode-eslint"            # ESLint support
-    "redhat.vscode-yaml"                # YAML support
-    "ms-azuretools.vscode-docker"       # Docker support
-    "formulahendry.code-runner"         # Run code from VSCode
-    "editorconfig.editorconfig"         # EditorConfig support
-    "eamodio.gitlens"                   # GitLens - Git supercharged
-    "esbenp.prettier-vscode"            # Prettier - Code formatter
+    "ms-python.python"            # Python support
+    "hashicorp.terraform"         # Terraform support
+    "googlecloudtools.cloudcode"  # Google Cloud support
+    "dbaeumer.vscode-eslint"      # ESLint support
+    "redhat.vscode-yaml"          # YAML support
+    "ms-azuretools.vscode-docker" # Docker support
+    "formulahendry.code-runner"   # Run code from VSCode
+    "editorconfig.editorconfig"   # EditorConfig support
+    "eamodio.gitlens"             # GitLens - Git supercharged
+    "esbenp.prettier-vscode"      # Prettier - Code formatter
+    "foxundermoon.shell-format"   # Formatter for shell scripts, Dockerfile, gitignore etc.
 )
 
 # Install each extension

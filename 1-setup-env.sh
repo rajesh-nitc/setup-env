@@ -16,19 +16,19 @@ sudo apt update && sudo apt upgrade -y
 # =====================
 echo "Installing common dependencies..."
 sudo apt install -y \
-    build-essential \
-    curl \
-    wget \
-    git \
-    unzip \
-    apt-transport-https \
-    ca-certificates \
-    gnupg \
-    software-properties-common \
-    lsb-release
+  build-essential \
+  curl \
+  wget \
+  git \
+  unzip \
+  apt-transport-https \
+  ca-certificates \
+  gnupg \
+  software-properties-common \
+  lsb-release
 
 # =====================
-# Install Dev tools
+# Install Dev tools using Snap
 # =====================
 sudo snap install docker --classic
 sudo snap install google-cloud-sdk --classic
@@ -37,10 +37,11 @@ sudo snap install kubectl --classic
 sudo snap install terraform --classic
 
 # =====================
-# Install Zsh and Oh My Zsh
+# Install Python3.12, Zsh and Oh My Zsh using Apt
 # =====================
 echo "Installing Zsh..."
 sudo apt install -y zsh
+sudo apt install python3.12 -y
 
 if [[ "$SHELL" != "$(which zsh)" ]]; then
   echo "Changing default shell to Zsh..."
