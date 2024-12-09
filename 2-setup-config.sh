@@ -104,19 +104,26 @@ echo "VS Code configuration updated with modern settings."
 # =====================
 echo "Installing recommended VS Code extensions..."
 
-# List of recommended extensions
+# List of modern best practice extensions
 EXTENSIONS=(
-    "ms-python.python"            # Python support
-    "hashicorp.terraform"         # Terraform support
-    "googlecloudtools.cloudcode"  # Google Cloud support
-    "dbaeumer.vscode-eslint"      # ESLint support
-    "redhat.vscode-yaml"          # YAML support
-    "ms-azuretools.vscode-docker" # Docker support
-    "formulahendry.code-runner"   # Run code from VSCode
-    "editorconfig.editorconfig"   # EditorConfig support
-    "eamodio.gitlens"             # GitLens - Git supercharged
-    "esbenp.prettier-vscode"      # Prettier - Code formatter
-    "foxundermoon.shell-format"   # Formatter for shell scripts, Dockerfile, gitignore etc.
+    "ms-python.python"                       # Python support
+    "dbaeumer.vscode-eslint"                 # ESLint support
+    "esbenp.prettier-vscode"                 # Prettier - Code formatter
+    "editorconfig.editorconfig"              # EditorConfig support
+    "hashicorp.terraform"                    # Terraform support
+    "redhat.vscode-yaml"                     # YAML support
+    "ms-azuretools.vscode-docker"            # Docker support
+    "googlecloudtools.cloudcode"             # Google Cloud support
+    "eamodio.gitlens"                        # GitLens - Git supercharged
+    "mhutchie.git-graph"                     # Git Graph
+    "rangav.vscode-thunder-client"           # REST Client
+    "timonwong.shellcheck"                   # ShellCheck for shell scripts
+    "foxundermoon.shell-format"              # Shell script formatting
+    "mikestead.dotenv"                       # .env file support
+    "VisualStudioExptTeam.vscodeintellicode" # IntelliCode AI
+    "aaron-bond.better-comments"             # Better Comments
+    "bierner.markdown-preview-github-styles" # Markdown preview
+    "shardulm94.trailing-spaces"             # Trailing spaces remover
 )
 
 # Install each extension

@@ -44,7 +44,7 @@ sudo apt install -y zsh python3.12 python3.12-venv
 
 if [[ "$SHELL" != "$(which zsh)" ]]; then
   echo "Changing default shell to Zsh..."
-  chsh -s $(which zsh)
+  chsh -s "$(which zsh)"
 fi
 
 echo "Installing Oh My Zsh..."
