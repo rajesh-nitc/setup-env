@@ -32,6 +32,10 @@ if ! grep -q "alias cdh='cd \$HOME/DEV'" ~/.zshrc; then
     echo "alias cdh='cd \$HOME/DEV'" >>~/.zshrc
 fi
 
+if ! grep -q "^cd \$HOME/DEV" ~/.zshrc; then
+    echo "cd \$HOME/DEV" >>~/.zshrc
+fi
+
 # =====================
 # Pre-Checks
 # =====================
