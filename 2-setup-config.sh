@@ -128,6 +128,7 @@ EXTENSIONS=(
     "aaron-bond.better-comments"             # Better Comments
     "bierner.markdown-preview-github-styles" # Markdown preview
     "shardulm94.trailing-spaces"             # Trailing spaces remover
+    "google.geminicodeassist"                # Gemini Code Assist
 )
 
 # Install each extension
