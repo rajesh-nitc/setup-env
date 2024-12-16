@@ -129,6 +129,7 @@ EXTENSIONS=(
     "bierner.markdown-preview-github-styles" # Markdown preview
     "shardulm94.trailing-spaces"             # Trailing spaces remover
     "google.geminicodeassist"                # Gemini Code Assist
+    "ms-toolsai.jupyter"                     # Jupyter notebook
 )
 
 # Install each extension
