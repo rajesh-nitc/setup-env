@@ -131,6 +131,7 @@ EXTENSIONS=(
     "google.geminicodeassist"                # Gemini Code Assist
     "ms-toolsai.jupyter"                     # Jupyter notebook
     "ms-toolsai.datawrangler"                # Data Wrangler
+    "GitHub.copilot"                         # GitHub copilot
 )
 
 # Install each extension
