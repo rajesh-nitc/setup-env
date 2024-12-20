@@ -120,7 +120,6 @@ EXTENSIONS=(
     "googlecloudtools.cloudcode"             # Google Cloud support
     "eamodio.gitlens"                        # GitLens - Git supercharged
     "mhutchie.git-graph"                     # Git Graph
-    "rangav.vscode-thunder-client"           # REST Client
     "timonwong.shellcheck"                   # ShellCheck for shell scripts
     "foxundermoon.shell-format"              # Shell script formatting
     "mikestead.dotenv"                       # .env file support
