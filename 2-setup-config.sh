@@ -87,8 +87,7 @@ mkdir -p "$(dirname "$CODE_USER_SETTINGS")"
 
 cat <<EOF >"$CODE_USER_SETTINGS"
 {
-    "editor.tabSize": 4, # Makefile standard
-    "editor.insertSpaces": false, # Makefile standard
+    "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
