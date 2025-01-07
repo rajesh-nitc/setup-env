@@ -60,12 +60,8 @@ if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 fi
 
-# Enable plugins in ~/.zshrc
-for plugin in "${OH_MY_ZSH_PLUGINS[@]}"; do
-    if ! grep -q "$plugin" ~/.zshrc; then
-        sed -i "/^plugins=/ s/)/ $plugin)/" ~/.zshrc
-    fi
-done
+# Replace plugins section in .zshrc with values from OH_MY_ZSH_PLUGINS
+sed -i "/^plugins=/c\plugins=(${OH_MY_ZSH_PLUGINS[*]})" ~/.zshrc
 
 # =====================
 # Terraform Config
