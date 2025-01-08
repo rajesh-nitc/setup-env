@@ -13,8 +13,6 @@ TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
 SSH_KEY_PATH="$HOME/.ssh/id_rsa"
-GOOGLE_CLOUD_PROJECT="prj-bu1-d-sample-base-9208"
-GOOGLE_CLOUD_REGION="us-central1"
 
 # =====================
 # Zsh Config
@@ -120,8 +118,9 @@ else
 fi
 
 # For default / personal
-gcloud config set project $GOOGLE_CLOUD_PROJECT
-gcloud config set compute/region $GOOGLE_CLOUD_REGION
+# gcloud init
+# gcloud auth application-default login # For application
+# gcloud auth login # For gcloud cli
 
 # =====================
 # VS Code Config
