@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit script on error
-set -xe
+set -e
 
 # =====================
 # User-Defined Variables
@@ -13,6 +13,8 @@ TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 ZSHRC_FILE="$HOME/.zshrc"
 CODE_USER_SETTINGS="$HOME/.config/Code/User/settings.json"
 SSH_KEY_PATH="$HOME/.ssh/id_rsa"
+GOOGLE_CLOUD_PROJECT="prj-bu1-d-sample-base-9208"
+GOOGLE_CLOUD_REGION="us-central1"
 
 # =====================
 # Zsh Config
@@ -76,6 +78,52 @@ EOF
 echo "Terraform configuration updated with plugin cache and checkpoint disabling."
 
 # =====================
+# Git Config
+# =====================
+echo "Setting up Git configuration..."
+git config --global user.name "$GIT_USER_NAME"
+git config --global user.email "$GIT_USER_EMAIL"
+git config --global core.editor "code --wait"
+git config --global pull.rebase true
+git config --global init.defaultBranch main
+
+# SSH Key for GitHub
+if [[ ! -f "$SSH_KEY_PATH" ]]; then
+    echo "Generating SSH key for GitHub..."
+    ssh-keygen -t rsa -b 4096 -C "$GIT_USER_EMAIL" -f "$SSH_KEY_PATH" -N ""
+    eval "$(ssh-agent -s)"
+    ssh-add "$SSH_KEY_PATH"
+    echo "SSH key generated. Add the following public key to GitHub:"
+    cat "$SSH_KEY_PATH.pub"
+fi
+
+# =====================
+# Gcloud Config
+# =====================
+# Check if the 'work' configuration already exists
+if gcloud config configurations list --format="value(name)" | grep -q "^work$"; then
+    echo "Configuration 'work' already exists. No action needed."
+else
+    # Create the 'work' configuration if it doesn't exist
+    echo "Creating 'work' configuration..."
+    gcloud config configurations create work
+fi
+
+# Check if the 'default' configuration already exists
+if gcloud config configurations list --format="value(name)" | grep -q "^default$"; then
+    echo "Configuration 'deafult' already exists. No action needed."
+    gcloud config configurations activate default
+else
+    # Create the 'default' configuration if it doesn't exist
+    echo "Creating 'default' configuration..."
+    gcloud config configurations create default
+fi
+
+# For default / personal
+gcloud config set project $GOOGLE_CLOUD_PROJECT
+gcloud config set compute/region $GOOGLE_CLOUD_REGION
+
+# =====================
 # VS Code Config
 # =====================
 echo "Setting up Visual Studio Code configuration..."
@@ -83,7 +131,6 @@ mkdir -p "$(dirname "$CODE_USER_SETTINGS")"
 
 cat <<EOF >"$CODE_USER_SETTINGS"
 {
-    "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
@@ -134,26 +181,6 @@ for EXTENSION in "${EXTENSIONS[@]}"; do
 done
 
 echo "VS Code extensions installed."
-
-# =====================
-# Git Config
-# =====================
-echo "Setting up Git configuration..."
-git config --global user.name "$GIT_USER_NAME"
-git config --global user.email "$GIT_USER_EMAIL"
-git config --global core.editor "code --wait"
-git config --global pull.rebase true
-git config --global init.defaultBranch main
-
-# SSH Key for GitHub
-if [[ ! -f "$SSH_KEY_PATH" ]]; then
-    echo "Generating SSH key for GitHub..."
-    ssh-keygen -t rsa -b 4096 -C "$GIT_USER_EMAIL" -f "$SSH_KEY_PATH" -N ""
-    eval "$(ssh-agent -s)"
-    ssh-add "$SSH_KEY_PATH"
-    echo "SSH key generated. Add the following public key to GitHub:"
-    cat "$SSH_KEY_PATH.pub"
-fi
 
 # =====================
 # Final Message
